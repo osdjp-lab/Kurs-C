@@ -1,0 +1,30 @@
+CodeBlocks.
+Sprawdziany 2.
+Aktywność plusy.
+Konsultacje przed zajęciami.
+Zadania przez Usos lub Moodle.
+
+Variable types:
+- char (-128 - 127)
+- short (-2^15 - 2^15-1)
+- int (-2^31 - 2^31-1)
+- long int (windows -> int; linux -> long long int)
+- long long int (-2^63 - 2^63-1)
+- unsigned -||-
+- float 4B
+- double 8B
+- long double 8B - 16B
+- table
+
+Printf string concatenation variable reference notation:
+- signed:
+    + %c
+    + %hd
+    + %d
+    + %ld
+    + %lld
+- unsigned:
+    + %hu
+    + %u
+    + %lu
+    + %llu
