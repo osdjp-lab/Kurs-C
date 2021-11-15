@@ -1,0 +1,1 @@
+Losowe.c - Plik do zadania 21.
