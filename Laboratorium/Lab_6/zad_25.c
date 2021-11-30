@@ -1,1 +1,0 @@
-// we funkcji obliczającej wyznacznik ma być (*) malloc
