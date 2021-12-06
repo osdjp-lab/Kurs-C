@@ -1,0 +1,28 @@
+Zestaw 1
+
+Napisz program który prosi użytkownika o podanie adresu e-mail, przy czym sprawdza czy został on poprawnie napisany (musi zawierać dokładnie jeden znak '@' a poza nim litery duże i małe oraz cyfry). W przypadku błędnego adresu program prosi (do skutku) o poprawienie go. Gdy już adres jest poprawny, to należy go wyświetli tak by litery były wyświetlane jako duże. Następnie program ma zaalokować losowo łańcuch znaków o jednym z rozmiarów 1kB, 2kB albo 4kB. W dalszym kroku program ma poprosić użytkownika o wpisanie tekstu wiadomości i umieścić ją w powyższej tablicy, przy czym jeżeli wpisane przez użytkownika wiadomość jest dłuższa niż rozmiar tablicy, to należy powiadomić użytkownika o przepełnieniu i nadmiarowe znaki zignorować.
+
+
+Zestaw 2
+
+Zaalokować dynamiczną tablicę znaków o rozmiarze podanej przez użytkownika
+- wypełnić tablicę losowymi literami (i małe i wielkie)
+- stworzyć menu z 3 wyborami:
+    1. Policz ile wystąpień podanej przez usera litery(gdzie 'a' i 'A' to to samo)
+    2. Jaka litera występuje najcześciej w tablicy
+    3. Zakończ program
+
+
+Zestaw 3
+
+Napisz program, który prosi w menu użytkownika o wybór 1) szyfrowanie tekstu 2) zakończenie programu. Przy wyborze 1) użytkownik podaje tekst złożony wyłącznie z liter, znaki nie będące literami mają być ignorowane, tekst zostaje zapisany do dynamicznie utworzonego łańcucha znaków (jego rozmiar musi się dopasować do wpisanego tekstu, może być od niego większy). Szyfrowanie polega to na tym, że litery alfabetu zostają przesunięte o pewną stałą (przy czym dojście do 'Z' powoduje dalsze liczenie od 'A', na przykład przesunięcie 'Z' o 2 daje 'B'), która ma być dobrana losowo do tekstu (z przedziału [1,25]). Program wyświetla zaszyfrowany tekst oraz stałą szyfrowania i przechodzi do menu.
+
+
+Zestaw 4
+
+Napisz program, który prosi użytkownika o podanie rozmiaru tablicy, następnie tworzy dynamicznie tablicę liczb rzeczywistych pojedynczej precyzji o tym rozmiarze i wypełnia ją liczbami losowymi z przedziału [0,1]. Następnie prosi użytkownika o podanie liczby rzeczywistej i wybranie jednej z akcji w menu 1) policzenie liczb w tablicy mniejszych od podanej 2) liczba z tablicy o wartości najbliższej od podanej oraz jej adres w pamięci 3) zakończenie programu. Po wybraniu opcji ma się wykonać odpowiedni kod, wyświetlenie wyniku i ponowne wyświetlenie menu.
+
+
+Zestaw 5
+
+Napisz program, który prosi użytkownika o podanie dwóch łańcuchów znaków o długości maksymalnie 32 każdy. Następnie tworzy dynamicznie łańcuch o długości 64 i wyświetla menu 1) dopisanie do łańcucha 2) wymieszanie łańcuchów 3) zakończenie programu. Opcja 1) dopisuje na koniec pierwszego łańcucha drugi, wynik ma być umieszczony w trzecim. Opcja 2) ma połączyć te dwa łańcuchy i umieścić w trzecim, w taki sposób że kolejny znak w trzecim jest kolejnym znakiem z pierwszego albo drugiego łańcucha (losujemy czy to ma być pierwszy czy drugi łańcuch, w przypadku dojścia do końca jednego z łańcuchów, kolejne znaki będą już tylko z tego drugiego). Po wyświetleniu trzeciego łańcucha wyświetlamy ponownie menu.

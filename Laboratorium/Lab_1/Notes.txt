@@ -1,0 +1,5 @@
+%c - print char
+%s - print c-string
+%d, %hd, %u - print integer (%i ???)
+'_' - symbol
+"_" - symbol list

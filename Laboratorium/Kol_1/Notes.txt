@@ -1,0 +1,10 @@
+Punkty 85/100
+
+Zestaw 4
+- pobranie rozmiaru 5/5, alokacja 10/10, poprawność 5/5, zwolnienie 5/5, pobranie liczby 5/5
+- wypełnieni losowymi liczbami 15/15, menu 0/10, mniejsze 20/20, wartość najbliższa 20/25
+
+funkcja najbliższa ma problem, gdy podano licbę >=2 lub <= -1
+brak menu, funkcje nie muszą być inline, funkcja fill_tab nic nie zwraca - lepiej by była typu void
+
+---------------------------------------------------------

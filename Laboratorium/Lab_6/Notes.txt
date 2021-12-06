@@ -1,0 +1,138 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+
+void wyswietl_macierz(double* A, unsigned n){
+    for(int i = 0; i<n; i++){
+        for(int j = 0; j < n; j++){
+            printf("%2.1f ", A[n*i+j]);
+        }
+        printf("\n");
+    }
+}
+
+double wyznacznik(double *A, unsigned n){
+    if(n == 2){
+        return (A[0]*A[3]-A[1]*A[2]);
+    }
+    else{
+        double suma = 0;
+        for(int j = 0; j< n; j++){
+            double Aj = (double) malloc((n-1)*(n-1)*sizeof(double));
+            if(Aj){
+                int wiersz = 0;
+                for(int i = 0; i < n; i++){
+                    printf("tu");
+                    if(i == j)continue;
+                    for(int k; k<n-1; k++){
+                        Aj[wiersz*(n-1)+k] = A[n*i+k];
+                        wiersz++;
+                    }
+                }
+                if((n+j+1)&1){
+                    suma -= A[n*j-n-1]*wyznacznik(Aj, n-1);
+                }
+                else suma += A[n*j-n-1]*wyznacznik(Aj, n-1);
+            }
+            else{
+                printf("Za mało pamięci \n");
+                suma = 0;
+                break;
+            }
+        }
+        return suma;
+    }
+}
+int main(){
+    unsigned n;
+    printf("podaj rozmiar macierzy: ");
+    scanf(" %u",&n);
+    if(n>1){
+        double macierz = (double) malloc(n*n*sizeof(double));
+        if(macierz){
+            srand(time(0));
+            for(int i = 0; i<n; i++)
+                for(int j = 0; j<n; j++)
+                    macierz[n*i+j] = rand();
+            wyswietl_macierz(macierz, n);
+            printf("Wyznacznik macierzy: %f", wyznacznik(macierz,n));
+        }
+        else printf("za malo pamieci n");
+    }
+    else printf("Za maly wymiar macierzy");
+}
+
+/*
+int licznik, mianownik;
+int NWD(int a, int b){
+    while(b!=0){
+        int r = a%b;
+        a = b;
+        b = r;
+    }
+    return a;
+}
+
+void skroc(int *l, int *m){
+    int r = NWD(*l,*m);
+    *l/=r;
+    *m/=r;
+}
+int main(){
+    printf("podaj licznik i mianownik: \n");
+    scanf("%d", &licznik);
+    printf("--\n");
+    scanf("%d", &mianownik);
+    if(mianownik!=0){
+        skroc(&licznik, &mianownik);
+        printf("Skrocony ulamek:\n %d \n -- \n %d", licznik, mianownik);
+    }
+    else
+    printf("nie dziel przez 0!");
+}
+
+
+
+/* ZAD 22
+int main()
+{
+    char lancuch1[128];
+    char lancuch2[128];
+    
+    for(int i = 0; i < 128; i++){//albo scanf("%[^\n128s", lancuch1)
+        lancuch1[i] = getchar();
+        if(lancuch1[i] == '\n'){
+            lancuch1[i] = 0;
+            break;
+        }
+    }
+    //uzywamy strrchr zeby znalezc pierwsza kropke i skopiować do łańcucha2 część do kropki włącznie
+    char *wsk = strrchr(lancuch1, '.');
+    if(wsk){
+        strncpy(lancuch2, lancuch1, (size_t)(wsk-lancuch1+1));
+        lancuch2[wsk-lancuch1+1] = 0;
+    }
+    else{
+        strcpy(lancuch2, lancuch1);
+    }
+    
+    //wyświetlamy długość łańcucha strlen
+    printf("Długość zdania do ostatniej kropki włącznie: %lu\n", strlen(lancuch2));
+    lancuch2[0] = 0;
+    // wyodrębniamy cyfry i wrzucamy do lancuch2 przy pomocy strcspm i strspn
+    
+    size_t poczatek = 0, koniec, dlugosc2 = 0;
+    while(1){
+    poczatek += strcspn(lancuch1 + poczatek, "0123456789");
+    if(poczatek == strlen(lancuch1))
+    break;
+    koniec = strspn(lancuch1 + poczatek,"0123456789");
+    strncpy(lancuch2 + dlugosc2,lancuch1 + poczatek, koniec);
+    dlugosc2+=koniec;
+    poczatek+=koniec;
+}
+    lancuch2[dlugosc2] = 0;
+    printf("Liczby w zdaniu: %s", lancuch2);
+}
+*/
