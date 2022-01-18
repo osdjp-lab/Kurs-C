@@ -7,13 +7,16 @@
 typedef struct komorka komorka;
 typedef struct info info;
 typedef struct wymiary wymiary;
+typedef enum typ_danych typ_danych;
+
+enum typ_danych{
+    brak = -1,
+    liczba = 0,
+    tekst = 1,
+};
 
 struct info {
-    enum typ {
-        brak = -1,
-        liczba = 0,
-        tekst = 1,
-    }typ;
+    typ_danych typ;
     komorka *wskaznik;
 };
 
@@ -21,10 +24,7 @@ struct komorka {
     unsigned int filled;
     int wiersz;
     int kolumna;
-    enum typ_danych{
-        liczba = 0,
-        tekst = 1,
-    }typ_danych;
+    typ_danych typ;
     union dane {
         double liczba;
         char tekst[56];
@@ -51,7 +51,7 @@ void dodaj_komorke_liczba(komorka *pierwsza, wymiary *tabela, double n) {
     for (int i=0; i<tabela->wierszy*tabela->kolumn-1; i++) {
         if (pierwsza[i].filled == 0) {
             pierwsza[i].filled = 1;
-            pierwsza[i].typ_danych = liczba;
+            pierwsza[i].typ = liczba;
             pierwsza[i].dane.liczba = n;
             break;
         }
@@ -62,7 +62,7 @@ void dodaj_komorke_text(komorka *pierwsza, wymiary *tabela, char t[56]) {
     for (int i=0; i<tabela->wierszy*tabela->kolumn-1; i++) {
         if (pierwsza[i].filled == 0) {
             pierwsza[i].filled = 1;
-            pierwsza[i].typ_danych = tekst;
+            pierwsza[i].typ = tekst;
             strcpy(pierwsza[i].dane.tekst, t);
             break;
         }
@@ -73,7 +73,7 @@ void zmien_zawartosc_komorki_liczba(komorka *pierwsza, wymiary *tabela, int wier
     for (int i=0; i<tabela->wierszy*tabela->kolumn-1; i++) {
         if (pierwsza[i].wiersz == wiersz && pierwsza[i].kolumna == kolumna) {
             pierwsza[i].filled = 1;
-            pierwsza[i].typ_danych = liczba;
+            pierwsza[i].typ = liczba;
             pierwsza[i].dane.liczba = n;
             break;
         }
@@ -84,7 +84,7 @@ void zmien_zawartosc_komorki_text(komorka *pierwsza, wymiary *tabela, int wiersz
     for (int i=0; i<tabela->wierszy*tabela->kolumn-1; i++) {
         if (pierwsza[i].wiersz == wiersz && pierwsza[i].kolumna == kolumna) {
             pierwsza[i].filled = 1;
-            pierwsza[i].typ_danych = liczba;
+            pierwsza[i].typ = tekst;
             strcpy(pierwsza[i].dane.tekst, t);
             break;
         }
@@ -104,7 +104,7 @@ info wyswietl_zawartosc(komorka *pierwsza, wymiary *tabela, int wiersz, int kolu
     info tmp;
     for (int i=0; i<tabela->wierszy*tabela->kolumn-1; i++) {
         if (pierwsza[i].wiersz == wiersz && pierwsza[i].kolumna == kolumna) {
-            tmp.typ = pierwsza[i].typ_danych;
+            tmp.typ = pierwsza[i].typ;
             tmp.wskaznik = &pierwsza[i];
             break;
         }
@@ -126,9 +126,9 @@ int main() {
             case 1:
                 while (1) {
                     printf("Podaj wiersz:");
-                    scanf(" %d", tabela->wierszy);
+                    scanf(" %d", &(tabela->wierszy));
                     printf("\nPodaj kolume:");
-                    scanf(" %d", tabela->kolumn);
+                    scanf(" %d", &(tabela->kolumn));
                     if (tabela->wierszy < 1 || tabela->kolumn < 1) {
                         printf("Podano bledna wielkosc tabeli.");
                         printf("Podaj wlasciwe wymiary.");
@@ -156,6 +156,9 @@ int main() {
         printf("3 - zapisz do pliku liste\n");
         printf("4 - wyswietl zawartosc komorki\n");
         scanf(" %d", &state);
+        double n;
+        char tmp[56];
+        int wiersz, kolumna, type;
         switch (state) {
             case 0:
                 break;
@@ -163,16 +166,13 @@ int main() {
                 printf("Podaj typ zawartosci:\n");
                 printf("0 - liczba\n");
                 printf("1 - text");
-                int type;
                 scanf(" %d", &type);
                 printf("Podaj zawartosc:\n");
                 switch (type) {
                     case 0:
-                        double n;
                         scanf(" %f", &n);
                         dodaj_komorke_liczba(pierwsza, tabela, n);
                     case 1:
-                        char tmp[56];
                         scanf(" %s", &tmp);
                         dodaj_komorke_text(pierwsza, tabela, tmp);
                     default:
@@ -181,24 +181,19 @@ int main() {
                 break;
             case 2:
                 printf("Podaj wiersz:");
-                int wiersz;
                 scanf(" %d", &wiersz);
                 printf("\nPodaj kolume:");
-                int kolumna;
                 scanf(" %d", &kolumna);
                 printf("Podaj typ zawartosci:\n");
                 printf("0 - liczba\n");
                 printf("1 - text");
-                int type;
                 scanf(" %d", &type);
                 printf("Podaj zawartosc:\n");
                 switch (type) {
                     case 0:
-                        double n;
                         scanf(" %f", &n);
                         zmien_zawartosc_komorki_liczba(pierwsza, tabela, wiersz, kolumna, n);
                     case 1:
-                        char tmp[56];
                         scanf(" %s", &tmp);
                         zmien_zawartosc_komorki_text(pierwsza, tabela, wiersz, kolumna, tmp);
                     default:
@@ -210,10 +205,8 @@ int main() {
                 break;
             case 4:
                 printf("Podaj wiersz:");
-                int wiersz;
                 scanf(" %d", &wiersz);
                 printf("\nPodaj kolume:");
-                int kolumna;
                 scanf(" %d", &kolumna);
                 info tmp = wyswietl_zawartosc(pierwsza, tabela, wiersz, kolumna);
                 printf("Komorka (%d, %d)\n", wiersz, kolumna);
